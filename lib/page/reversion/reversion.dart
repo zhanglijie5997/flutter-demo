@@ -18,9 +18,9 @@ class _ReversionState extends State<Reversion> {
       return AdopScreenutil.getInstance().adaptationHeight(size, context);
     }
 
-    double settingFontSize(int size) {
-      return AdopScreenutil.getInstance().adaptationFontSize(size, context);
-    }
+    // double settingFontSize(int size) {
+    //   return AdopScreenutil.getInstance().adaptationFontSize(size, context);
+    // }
     return Scaffold(
       appBar: AppBar(
         title: Text("预约",style: TextStyle(color: Colors.black)),

@@ -2,22 +2,40 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/utils/screenUtil.dart';
 import 'package:flutter_app/page/index/indexBody/indexBody.dart';
+
 class Index extends StatefulWidget {
   _IndexState createState() => _IndexState();
 }
 
 class _IndexState extends State<Index> {
+  bool _show = false;
   @override
   Widget build(BuildContext context) {
     double radiusFn(int size) {
       return AdopScreenutil.getInstance().adaptationWidth(size, context);
     }
 
+    double settingHeight(int size) {
+      return AdopScreenutil.getInstance().adaptationHeight(size, context);
+    }
+
+    double settingFontSize(int size) {
+      return AdopScreenutil.getInstance().adaptationFontSize(size, context);
+    }
     // 数据
     List data = [
-      {"image": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1282530439,643532505&fm=26&gp=0.jpg"},
-      {"image": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1282530439,643532505&fm=26&gp=0.jpg"},
-      {"image": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1282530439,643532505&fm=26&gp=0.jpg"},
+      {
+        "image":
+            "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1282530439,643532505&fm=26&gp=0.jpg"
+      },
+      {
+        "image":
+            "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1282530439,643532505&fm=26&gp=0.jpg"
+      },
+      {
+        "image":
+            "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1282530439,643532505&fm=26&gp=0.jpg"
+      },
     ];
 
     // 头部左侧
@@ -74,7 +92,9 @@ class _IndexState extends State<Index> {
             child: Container(
               padding: EdgeInsets.all(radiusFn(5)),
               width: radiusFn(150),
-              decoration: BoxDecoration(border: Border.all(width: 1, color: Colors.white),borderRadius: BorderRadius.circular(radiusFn(15))),
+              decoration: BoxDecoration(
+                  border: Border.all(width: 1, color: Colors.white),
+                  borderRadius: BorderRadius.circular(radiusFn(15))),
               child: Text(
                 "切换地址",
                 textAlign: TextAlign.center,
@@ -90,19 +110,24 @@ class _IndexState extends State<Index> {
           ),
         ),
         Container(
-          child: Row(
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(left: radiusFn(30)),
-                child: Image.asset("images/index/shouyejinsedingwe_9_12.9@2x.png", width: radiusFn(40),),
+            child: Row(
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(left: radiusFn(30)),
+              child: Image.asset(
+                "images/index/shouyejinsedingwe_9_12.9@2x.png",
+                width: radiusFn(40),
               ),
-              Container(
-                margin: EdgeInsets.only(left: radiusFn(40)),
-                child: Image.asset("images/index/shouyejinsedianhuahao_9_12.9@2x.png", width: radiusFn(40),),
-              )
-            ],
-          ) 
-        )
+            ),
+            Container(
+              margin: EdgeInsets.only(left: radiusFn(40)),
+              child: Image.asset(
+                "images/index/shouyejinsedianhuahao_9_12.9@2x.png",
+                width: radiusFn(40),
+              ),
+            )
+          ],
+        ))
       ],
     );
     // 头部
@@ -140,24 +165,111 @@ class _IndexState extends State<Index> {
           radiusFn(20), radiusFn(20), radiusFn(20), radiusFn(20)),
     );
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("主页", style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.white,
+    // 吸底显示
+    Widget toBottom = Container(
+      width: radiusFn(750),
+      height: settingHeight(1750),
+      // color: Colors.red,
+      child: Stack(
+        children: <Widget>[
+          Positioned(
+            bottom: settingHeight(0),
+            child: Container(
+              width: radiusFn(750),
+              height: settingHeight(80),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.topRight,
+                  colors: [
+                    Color.fromRGBO(255, 241, 218, 1),
+                    Color.fromRGBO(255, 255, 210, 1),
+                  ]
+                )
+              ),
+              child: Container(
+                width: radiusFn(690),
+                margin: EdgeInsets.fromLTRB(radiusFn(30), 0, radiusFn(30), 0),
+                child:  Flex(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  direction: Axis.horizontal,
+                  children: <Widget>[
+                    Text("测试店铺", style: TextStyle(fontSize: settingFontSize(30))),
+                    Container(
+                      child: Row(
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.all(radiusFn(20)),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(radiusFn(50))
+                            ),
+                            margin: EdgeInsets.only(right: radiusFn(20)),
+                            child: Image.asset("images/index/xiangqingdianhua_9_12.9@2x.png", width: radiusFn(30),),
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(radiusFn(20)),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(radiusFn(50))
+                            ),
+                            margin: EdgeInsets.only(right: radiusFn(20)),
+                            child: Image.asset("images/index/xiangqingdingwei_9_12.9@2x.png", width: radiusFn(30),),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ) ,
+              )
+            ),
+          )
+        ],
       ),
-      body: SingleChildScrollView(
-        //滚动方向，默认是垂直方向
-        scrollDirection: Axis.vertical,
-        //是否使用widget树中默认的PrimaryScrollController
-        primary: true,
-        physics: BouncingScrollPhysics(),
-        child:  new Column(
-          children: <Widget>[
-            header,
-            IndexBody(data: data)
-          ],
-        ),
-      ) 
     );
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("主页", style: TextStyle(color: Colors.black)),
+          backgroundColor: Colors.white,
+        ),
+        body: Stack(
+          children: <Widget>[
+            Container(
+              child: Scrollbar(
+                  child: NotificationListener<ScrollNotification>(
+                onNotification: (ScrollNotification scroll) {
+                  // 滚动到哪里执行吸底操作
+                  double top =
+                      scroll.metrics.pixels / scroll.metrics.maxScrollExtent;
+                  if (top > 0.2) {
+                    setState(() {
+                      this._show = true;
+                    });
+                  } else {
+                    setState(() {
+                      this._show = false;
+                    });
+                  }
+                  return false;
+                },
+                child: SingleChildScrollView(
+                  //滚动方向，默认是垂直方向
+                  scrollDirection: Axis.vertical,
+                  //是否使用widget树中默认的PrimaryScrollController
+                  primary: true,
+                  physics: BouncingScrollPhysics(),
+                  child: new Column(
+                    children: <Widget>[
+                      header,
+                      IndexBody(data: data),
+                    ],
+                  ),
+                ),
+              )),
+            ),
+            this._show ? toBottom : Text("")
+
+          ],
+        ));
   }
 }

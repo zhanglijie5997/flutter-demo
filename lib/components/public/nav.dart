@@ -3,8 +3,8 @@ import 'package:flutter_app/utils/screenUtil.dart';
 
 class Nav extends StatefulWidget {
   Nav({Key key, this.name, this.type}): super(key: key);
-  String name;
-  int type;
+  final String name;
+  final int type;
   _NavState createState () => _NavState();
 }
 

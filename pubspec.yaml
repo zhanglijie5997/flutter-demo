@@ -25,10 +25,20 @@ dependencies:
   cupertino_icons: ^0.1.2
   # UI适配插件
   flutter_screenutil: ^0.7.0
-  # 轮播图
-  # flutter_swiper : ^1.1.6
   # 弹出框组件
   fluttertoast: ^3.1.3
+  # 使用svg插件
+  # flutter_svg: ^0.15.0
+  # 网络请求库
+  dio: ^3.0.8
+  # 轮播图
+  # flutter_swiper: 
+  #   git:
+  #     url: https://github.com/zhanglijie5997/flutter_swiper
+  #     ref: f41468dfd9ded34aa6a56ec063c40a36c22299a5
+
+  
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -61,6 +71,9 @@ flutter:
    - images/index/sousuo_9_12.9@2x.png
    - images/index/shouyejingpin_9_12.9@2x.png
    - images/index/shouyexinpinshangjia_9_12.9@2x.png
+   - images/index/xiangqingdianhua_9_12.9@2x.png
+   - images/index/xiangqingdingwei_9_12.9@2x.png
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -8,7 +8,7 @@ import 'package:flutter_app/utils/screenUtil.dart';
 
 class IndexBody extends StatefulWidget {
   IndexBody({Key key,this.data}): super(key : key);
-  List data;
+  final List data;
   _IndexBodyState createState () => _IndexBodyState();
 }
 

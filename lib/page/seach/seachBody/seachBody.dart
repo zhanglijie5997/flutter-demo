@@ -62,16 +62,18 @@ class _SeachBodyState extends State<SeachBody> {
             ),
           ),
           Container(
-            child: Row(
-              children: <Widget>[
-                Container(
-                  child: Text("清空历史记录"),
-                ),
-                Container(
-                  // child: Icon(Icons.),
-                )
-              ],
-            ),
+            // color: Colors.red,
+              child:Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    child: Text("清空历史记录", style: TextStyle(fontSize: settingFontSize(30), fontWeight: FontWeight.w500),),
+                  ),
+                  Container(
+                    // child: Icon(Icons.),
+                  )
+                ],
+              ),
           )
         ],
       ),

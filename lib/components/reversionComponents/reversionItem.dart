@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/page/reversionDetail/reversionDetail.dart';
 import 'package:flutter_app/utils/screenUtil.dart';
 
 class ReversionItem extends StatefulWidget {
@@ -67,6 +68,9 @@ class _ReversionItemState extends State<ReversionItem> {
                       ),
                       onTap: () {
                         print("跳转预约");
+                        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                          return ReversionDetail();
+                        }));
                       },
                     )
                   ],
