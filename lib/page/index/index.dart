@@ -1,14 +1,27 @@
+import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/utils/httpList/index.dart';
 import 'package:flutter_app/utils/screenUtil.dart';
 import 'package:flutter_app/page/index/indexBody/indexBody.dart';
-
+import 'package:json_annotation/json_annotation.dart';
 class Index extends StatefulWidget {
   _IndexState createState() => _IndexState();
 }
 
 class _IndexState extends State<Index> {
   bool _show = false;
+  // 获取首页数据
+  getIndexData() async {
+    var data = await IndexHttp().getIndexData();
+    print(data["data"]);
+    print("index数据");
+  }
+  @override
+  void initState(){
+    this.getIndexData();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     double radiusFn(int size) {

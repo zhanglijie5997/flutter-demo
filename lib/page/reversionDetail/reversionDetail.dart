@@ -32,13 +32,23 @@ class _ReversionDetailState extends State<ReversionDetail> {
         ) 
       ),
       body: Container(
-        child: Column(
-          children: <Widget>[
-            ReversionDetailHeader(),
-            ReversionDetailBody()
-          ],
-        ),
-      ),
+        width: settingWidth(750),
+        child: Scrollbar(
+          child:Container(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              primary: true,
+              physics: BouncingScrollPhysics(),
+              child: Column(
+                children: <Widget>[
+                  ReversionDetailHeader(),
+                  ReversionDetailBody()
+                ],
+              ),
+            ) 
+          ),
+          ),
+        )
     );
   }
 }

@@ -55,7 +55,7 @@ class _ReversionDetailHeaderState extends State<ReversionDetailHeader> {
       width: settingWidth(690),
       clipBehavior: Clip.antiAlias,
       // height: settingHeight(500),
-      margin: EdgeInsets.fromLTRB(settingWidth(30),settingHeight(20), 0, 0),
+      margin: EdgeInsets.fromLTRB(settingWidth(0),settingHeight(20), 0, 0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(settingWidth(20)),
         color: Colors.white,

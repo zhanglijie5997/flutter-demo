@@ -18,17 +18,17 @@ class HttpInit {
   Dio dio = Dio(_options);
   
   // get 请求
-  Future httpGet(String url,Map<String, dynamic> params) async {
+  httpGet(String url,Map<String, dynamic> params) async {
       response = await dio.get(url, queryParameters: params);
-      final data = response.data.toString();
+      final data = response.data;
       return data;
   }
   // post 请求
-  Future httpPost(String url, Map<String, dynamic> params) async{
+  httpPost(String url, Map<String, dynamic> params) async{
     FormData formData = FormData.fromMap(params);
     response = await dio.post(url, data: formData, onSendProgress: (int sent, int total) {
       print('$sent $total');
     });
-    return response.data.toString();
+    return response.data;
   }
 }
