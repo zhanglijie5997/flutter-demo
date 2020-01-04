@@ -32,7 +32,10 @@ dependencies:
   # 网络请求库
   dio: ^3.0.8
   # JSON解析
-  json_annotation: ^3.0.1
+  # json_annotation: ^3.0.1
+  # 拨打电话
+  # url_launcher: ^5.4.1
+  get_it: ^3.1.0
   # 轮播图
   # flutter_swiper: 
   #   git:

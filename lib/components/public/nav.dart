@@ -56,7 +56,7 @@ class _NavState extends State<Nav> {
           Container(
               // padding: EdgeInsets.only(right: settingWidth(20)),
               child: GestureDetector(
-                child: widget.type == 1 ? Image.network(rightIcon, width: settingWidth(30),height: settingHeight(30),) : Text(""),
+                child: widget.type == 0 ? Image.network(rightIcon, width: settingWidth(30),height: settingHeight(30),) : Text(""),
                 onTap: () {
                   if(widget.type == 1) {
                     print(widget.name);

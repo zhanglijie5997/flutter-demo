@@ -29,12 +29,22 @@ class _ReversionItemState extends State<ReversionItem> {
     }
     return Container(
       width: settingWidth(690),
+     
       margin: EdgeInsets.only(left: settingWidth(30)) ,
       child: Flex(
         direction: Axis.horizontal,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Image.network(widget.data["image"], width: settingWidth(180), height: settingHeight(180),),
+          Container(
+            height: settingHeight(180),
+            width: settingWidth(180),
+            child: Card(
+              clipBehavior: Clip.antiAlias,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(settingWidth(5))),
+              child: Image.network(widget.data["image"], fit: BoxFit.cover,),
+            ),
+          ),
+          
           Expanded(
             child: Container(
                 margin: EdgeInsets.only(left: settingWidth(20)),
@@ -43,12 +53,12 @@ class _ReversionItemState extends State<ReversionItem> {
                   children: <Widget>[
                     Container(
                       alignment: Alignment.centerLeft,
-                      child: Text("可预约项目", style: TextStyle(fontSize: settingFontSize(30)),textAlign: TextAlign.left,),
+                      child: Text(widget.data["name"], style: TextStyle(fontSize: settingFontSize(30)),textAlign: TextAlign.left,),
                     ), 
                     Container(
                       margin: EdgeInsets.fromLTRB(0, settingHeight(20), 0, 0),
                       alignment: Alignment.centerLeft,
-                      child: Text("时长50min", style: TextStyle(fontSize: settingFontSize(26), color: Color.fromRGBO(232, 24, 68, 1)),textAlign: TextAlign.left),
+                      child: Text("时长"+ widget.data["time"].toString() +"min", style: TextStyle(fontSize: settingFontSize(26), color: Color.fromRGBO(232, 24, 68, 1)),textAlign: TextAlign.left),
                     ),
                     GestureDetector(
                       child: Container(

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/components/indexComponents/shopItem.dart';
+import 'package:flutter_app/components/public/nodata.dart';
 import 'package:flutter_app/page/seach/seachBody/seachBody.dart';
+import 'package:flutter_app/utils/httpList/seach.dart';
 import 'package:flutter_app/utils/screenUtil.dart';
 
 class Seach extends StatefulWidget {
@@ -8,13 +11,23 @@ class Seach extends StatefulWidget {
 
 class _SeachState extends State<Seach> {
   String _text = "";
+  List _seachList = [];
   TextEditingController _textEditingController;
   List<String> list = ["需求1","需求2"];
-  List<String> historyList = ["111", "222"];
+  List<String> historyList = ["111", "222","111", "222","111", "222","111", "222","111", "222","111", "222","111", "222","111", "222","111", "222","111", "222","111", "222","111", "222","111", "222", ];
   @override
   void initState() {
     _textEditingController = new TextEditingController(text: _text);
+    this.getSeach();
     super.initState();
+  }
+
+  void getSeach() async {
+     var data = await SeachHttpList().getSeach(this._text);
+      
+     setState(() {
+       this._seachList = data["data"]["list"];
+     });
   }
   @override
   Widget build(BuildContext context) {
@@ -28,6 +41,12 @@ class _SeachState extends State<Seach> {
 
     double settingFontSize(int size) {
       return AdopScreenutil.getInstance().adaptationFontSize(size, context);
+    }
+    void change(String context) {
+      setState(() {
+        this._text = context;
+        this._seachList = [];
+      });
     }
     // 搜索
     Widget seach = Container(
@@ -49,6 +68,7 @@ class _SeachState extends State<Seach> {
               
               child:Center(
                 child: TextField(
+
                     style: TextStyle(fontSize: settingFontSize(40)),
                     // maxLength: 30,
                     controller: this._textEditingController,
@@ -74,7 +94,13 @@ class _SeachState extends State<Seach> {
                       //   color: Colors.grey,
                         
                       // ),
-                      suffixIcon: Icon(Icons.close, color: Colors.black,),
+                      suffixIcon: GestureDetector(
+                        child:Icon(Icons.close, color: Colors.black,),
+                        onTap:() {
+                          this._textEditingController.clear();
+                          change("");
+                        } ,
+                      ) 
                     ),
                   
                     // 设置输入框的输入类型的
@@ -82,13 +108,11 @@ class _SeachState extends State<Seach> {
                     // 用于密码输入框
                     obscureText: false,
                     // 用户输入改变
-                    onChanged: (String context) {
-                      setState(() {
-                        this._text = context;
-                      });
-                    },
+                    onChanged: change,
+                    
                     onSubmitted: (String str) {
-                      print(this._text);
+                       
+                      this.getSeach();
                     },
                 ),
               ) 
@@ -99,7 +123,31 @@ class _SeachState extends State<Seach> {
       ),
     );
     
-    return Scaffold(
+    // 搜索结果页
+    Widget seachListWidget() {
+      return Container(
+        width: settingWidth(690),
+        child: GridView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              //横轴元素个数
+              crossAxisCount: 2,
+              // 纵轴间距
+              mainAxisSpacing: settingHeight(20),
+              // 横轴间距
+              crossAxisSpacing: settingWidth(10),
+              // 子组件宽高比
+              childAspectRatio: 0.80
+          ),
+          shrinkWrap: true,
+          itemCount: this._seachList.length,
+          itemBuilder: (BuildContext context, int i) {
+            return ShopItem(item: this._seachList[i]);
+          },
+        ),
+      );
+    }
+    return  Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
           child: Icon(Icons.chevron_left, color: Colors.black,size: settingWidth(50),),
@@ -110,18 +158,27 @@ class _SeachState extends State<Seach> {
         title: Text("搜索", style: TextStyle(color: Colors.black),),
         backgroundColor: Colors.white,
       ),
-      body: SingleChildScrollView(
-        // ios 回弹效果
-        physics: BouncingScrollPhysics(),
-        primary: true,
-        child: Container(
-          child: Column(
-            children: <Widget>[
-              seach,
-              SeachBody(data: this.list, historyList: this.historyList,)
-            ],
-          ),
-        ),
+      body: Container(
+        width: settingWidth(750),
+        child: Scrollbar(
+          child: SingleChildScrollView(
+            child: Container(
+              width: settingWidth(710),
+              margin: EdgeInsets.fromLTRB(settingWidth(0), settingHeight(20), 0, settingHeight(30)) ,
+              decoration: BoxDecoration(
+                // color: Colors.red,
+              ),
+              child: Column(
+                children: <Widget>[
+                  seach,
+                  // seachListWidget()
+                  this._text == "" ? SeachBody(data: this.list, historyList: this.historyList) : 
+                                                      this._seachList.length > 0 ? seachListWidget() : NoData(),
+                ],
+              ),
+            ),
+          ) 
+        ) 
       ) 
     );
   }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 
 class HttpInit {
@@ -13,6 +15,9 @@ class HttpInit {
     baseUrl: "http://localhost:3000",
     connectTimeout: 5000,
     receiveTimeout: 3000,
+    headers: {
+      HttpHeaders.contentTypeHeader: "*"
+    }
   ) ;
   Response response;
   Dio dio = Dio(_options);
@@ -25,9 +30,10 @@ class HttpInit {
   }
   // post 请求
   httpPost(String url, Map<String, dynamic> params) async{
-    FormData formData = FormData.fromMap(params);
-    response = await dio.post(url, data: formData, onSendProgress: (int sent, int total) {
-      print('$sent $total');
+    // FormData formData = FormData.fromMap(params);
+    print(params);
+    response = await dio.post(url, data: params, onSendProgress: (int sent, int total) {
+      // print('$sent $total');
     });
     return response.data;
   }

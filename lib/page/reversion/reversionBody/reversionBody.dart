@@ -4,24 +4,20 @@ import 'package:flutter_app/page/seach/seach.dart';
 import 'package:flutter_app/utils/screenUtil.dart';
 
 class ReversionBody extends StatefulWidget {
+  ReversionBody({Key key, this.getData, this.callBack}): super(key: key);
+  final List getData;
+  final callBack;
   _ReversionBodyState createState() => _ReversionBodyState();
 }
 
 class _ReversionBodyState extends State<ReversionBody> {
   List<String> firstTabList = ["未购买项目", "已购买项目"];
   int _firstActive = 0;
-  List _reversionList = [
-    {"image": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1282530439,643532505&fm=26&gp=0.jpg"},
-    {"image": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1282530439,643532505&fm=26&gp=0.jpg"},
-    {"image": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1282530439,643532505&fm=26&gp=0.jpg"},
-    {"image": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1282530439,643532505&fm=26&gp=0.jpg"},
-    {"image": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1282530439,643532505&fm=26&gp=0.jpg"},
-    {"image": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1282530439,643532505&fm=26&gp=0.jpg"},
-    {"image": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1282530439,643532505&fm=26&gp=0.jpg"},
-    {"image": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1282530439,643532505&fm=26&gp=0.jpg"},
-    {"image": "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1282530439,643532505&fm=26&gp=0.jpg"},
-
-  ];
+  @override
+  void initState() {
+    widget.callBack(_firstActive);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     double settingWidth(int size) {
@@ -89,6 +85,7 @@ class _ReversionBodyState extends State<ReversionBody> {
                             
                           ),
               onTap: () {
+                widget.callBack(i);
                 setState(() {
                   this._firstActive = i;
                 });
@@ -114,9 +111,9 @@ class _ReversionBodyState extends State<ReversionBody> {
           // 设置physics属性总是可滚动
           physics: BouncingScrollPhysics(),
           shrinkWrap: true,
-          itemCount: this._reversionList.length,
+          itemCount: widget.getData.length,
           itemBuilder: (BuildContext context,int i) {
-            return ReversionItem(data: this._reversionList[i]);
+            return ReversionItem(data: widget.getData[i]);
           },
         ),
       );

@@ -1,25 +1,41 @@
-import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/utils/httpList/index.dart';
 import 'package:flutter_app/utils/screenUtil.dart';
 import 'package:flutter_app/page/index/indexBody/indexBody.dart';
-import 'package:json_annotation/json_annotation.dart';
 class Index extends StatefulWidget {
   _IndexState createState() => _IndexState();
 }
 
 class _IndexState extends State<Index> {
   bool _show = false;
+  var _indexData ;
+  // 数据
+  List data = [];
+  // 新品上架数据
+  List _newProductList = []; 
   // 获取首页数据
   getIndexData() async {
     var data = await IndexHttp().getIndexData();
-    print(data["data"]);
-    print("index数据");
+    // print(data["data"]);
+    setState(() {
+      this._indexData = data["data"];
+      this.data = data["data"]["excellentProject"];
+    });
+    print(this._indexData["image"] is String);
+  }
+
+  // 获取新品上架数据
+  getNewProduct() async {
+    var data = await IndexHttp().getNewProduct();
+    setState(() {
+      this._newProductList = data["data"]["list"];
+    });
   }
   @override
   void initState(){
     this.getIndexData();
+    this.getNewProduct();
     super.initState();
   }
   @override
@@ -35,21 +51,7 @@ class _IndexState extends State<Index> {
     double settingFontSize(int size) {
       return AdopScreenutil.getInstance().adaptationFontSize(size, context);
     }
-    // 数据
-    List data = [
-      {
-        "image":
-            "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1282530439,643532505&fm=26&gp=0.jpg"
-      },
-      {
-        "image":
-            "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1282530439,643532505&fm=26&gp=0.jpg"
-      },
-      {
-        "image":
-            "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1282530439,643532505&fm=26&gp=0.jpg"
-      },
-    ];
+    
 
     // 头部左侧
     Widget headerLeft = Row(
@@ -68,27 +70,32 @@ class _IndexState extends State<Index> {
                           .adaptationWidth(8, context))),
               clipBehavior: Clip.antiAlias,
               child: Image.network(
-                  "https://youlin168.oss-cn-shenzhen.aliyuncs.com/shop/0b96bdf76075e34b058e536a5eb78495f566e810.jpeg",
-                  fit: BoxFit.fitWidth),
+                  this._indexData != null ? this._indexData["image"]: "https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/09/0E/ChMkJlxmkXiId-nFAAHjtDWSLkMAAu6WQCRyT8AAePM441.jpg",
+                  // "https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/09/0E/ChMkJlxmkXiId-nFAAHjtDWSLkMAAu6WQCRyT8AAePM441.jpg",
+                  fit: BoxFit.fitHeight),
             )),
         Container(
           margin: EdgeInsets.fromLTRB(radiusFn(20), radiusFn(80), 0, 0),
           width: radiusFn(270),
           child: Column(
             children: <Widget>[
-              Text(
-                "乐乐乐乐乐乐乐乐乐",
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                    color: Color.fromRGBO(255, 241, 216, 1),
-                    fontSize: AdopScreenutil.getInstance()
-                        .adaptationFontSize(30, context)),
-                overflow: TextOverflow.ellipsis,
+              Container(
+                width: radiusFn(270),
+                child: Text(
+                  this._indexData != null ? this._indexData["storeName"]: "",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      color: Color.fromRGBO(255, 241, 216, 1),
+                      fontSize: AdopScreenutil.getInstance()
+                          .adaptationFontSize(30, context)),
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
+              
               Container(
                 margin: EdgeInsets.only(top: radiusFn(20)),
                 width: radiusFn(270),
-                child: Text("三九花园",
+                child: Text(this._indexData != null ? this._indexData["address"]:"",
                     textAlign: TextAlign.left,
                     style: TextStyle(color: Color.fromRGBO(255, 241, 216, 1))),
               )
@@ -207,7 +214,7 @@ class _IndexState extends State<Index> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   direction: Axis.horizontal,
                   children: <Widget>[
-                    Text("测试店铺", style: TextStyle(fontSize: settingFontSize(30))),
+                    Text(this._indexData != null ? this._indexData["storeName"] : "", style: TextStyle(fontSize: settingFontSize(30))),
                     Container(
                       child: Row(
                         children: <Widget>[
@@ -249,32 +256,32 @@ class _IndexState extends State<Index> {
           children: <Widget>[
             Container(
               child: Scrollbar(
-                  child: NotificationListener<ScrollNotification>(
-                onNotification: (ScrollNotification scroll) {
-                  // 滚动到哪里执行吸底操作
-                  double top =
-                      scroll.metrics.pixels / scroll.metrics.maxScrollExtent;
-                  if (top > 0.2) {
-                    setState(() {
-                      this._show = true;
-                    });
-                  } else {
-                    setState(() {
-                      this._show = false;
-                    });
-                  }
-                  return false;
-                },
-                child: SingleChildScrollView(
-                  //滚动方向，默认是垂直方向
-                  scrollDirection: Axis.vertical,
-                  //是否使用widget树中默认的PrimaryScrollController
-                  primary: true,
-                  physics: BouncingScrollPhysics(),
-                  child: new Column(
-                    children: <Widget>[
-                      header,
-                      IndexBody(data: data),
+                child: NotificationListener<ScrollNotification>(
+                  onNotification: (ScrollNotification scroll) {
+                    // 滚动到哪里执行吸底操作
+                    double top =
+                        scroll.metrics.pixels / scroll.metrics.maxScrollExtent;
+                    if (top > 0.2) {
+                      setState(() {
+                        this._show = true;
+                      });
+                    } else {
+                      setState(() {
+                        this._show = false;
+                      });
+                    }
+                    return false;
+                  },
+                  child: SingleChildScrollView(
+                    //滚动方向，默认是垂直方向
+                    scrollDirection: Axis.vertical,
+                    //是否使用widget树中默认的PrimaryScrollController
+                    primary: true,
+                    physics: BouncingScrollPhysics(),
+                    child: new Column(
+                      children: <Widget>[
+                        header,
+                        IndexBody(data: data, list: _newProductList),
                     ],
                   ),
                 ),

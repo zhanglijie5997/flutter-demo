@@ -4,11 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/components/indexComponents/shopItem.dart';
 import 'package:flutter_app/components/public/nav.dart';
+import 'package:flutter_app/page/seach/seach.dart';
 import 'package:flutter_app/utils/screenUtil.dart';
 
 class IndexBody extends StatefulWidget {
-  IndexBody({Key key,this.data}): super(key : key);
+  IndexBody({Key key,this.data, this.list}): super(key : key);
   final List data;
+  final List list;
   _IndexBodyState createState () => _IndexBodyState();
 }
 
@@ -141,6 +143,10 @@ class _IndexBodyState extends State<IndexBody> {
               ),
               onTap: () {
                 print("跳转搜索页面");
+                Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                  return Seach();
+                }));
+
               },
             ),
           )
@@ -149,7 +155,7 @@ class _IndexBodyState extends State<IndexBody> {
     );
     
     // 下部商品列表部分
-    Widget foots (String name, int type) =>  Container(
+    Widget foots (String name, int type, List data) =>  Container(
       width: settingWidth(710),
       margin: EdgeInsets.only(top: settingHeight(20)),
       decoration: BoxDecoration(
@@ -162,7 +168,7 @@ class _IndexBodyState extends State<IndexBody> {
           Nav(name: name, type: type),
          
           GridView.builder(
-            itemCount: widget.data.length,
+            itemCount: data.length,
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
 
@@ -174,10 +180,10 @@ class _IndexBodyState extends State<IndexBody> {
               // 横轴间距
               crossAxisSpacing: settingWidth(10),
               // 子组件宽高比
-              childAspectRatio: 0.9
+              childAspectRatio: 0.82
             ),
             itemBuilder: (BuildContext context, int index) {
-              return ShopItem(item: widget.data[index]); 
+              return ShopItem(item: data[index]); 
               // return Text("123");
             },
           )
@@ -190,8 +196,8 @@ class _IndexBodyState extends State<IndexBody> {
         children: <Widget>[
           header,
           body,
-          foots("精品项目", 0),
-          foots("新品上架", 1),
+          foots("精品项目", 0, widget.data),
+          foots("新品上架", 1, widget.list),
 
         ],
       ),

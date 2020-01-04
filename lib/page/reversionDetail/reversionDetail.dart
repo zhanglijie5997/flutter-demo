@@ -12,9 +12,9 @@ class _ReversionDetailState extends State<ReversionDetail> {
       return AdopScreenutil.getInstance().adaptationWidth(size, context);
     }
 
-    double settingHeight(int size) {
-      return AdopScreenutil.getInstance().adaptationHeight(size, context);
-    }
+    // double settingHeight(int size) {
+    //   return AdopScreenutil.getInstance().adaptationHeight(size, context);
+    // }
 
     double settingFontSize(int size) {
       return AdopScreenutil.getInstance().adaptationFontSize(size, context);

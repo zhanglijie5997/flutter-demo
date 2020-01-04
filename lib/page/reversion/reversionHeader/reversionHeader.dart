@@ -2,10 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/utils/screenUtil.dart';
 
 class ReversionHeader extends StatefulWidget {
+  ReversionHeader({Key key, this.storeData}): super(key: key);
+  final  storeData; // 头部数据
   _ReversionHeaderState createState () => _ReversionHeaderState();
 }
 
 class _ReversionHeaderState extends State<ReversionHeader> {
+  @override
+  void initState() {
+    // print(widget.storeData);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
      double settingWidth(int size) {
@@ -33,7 +40,7 @@ class _ReversionHeaderState extends State<ReversionHeader> {
           direction: Axis.horizontal,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text("三只松鼠的小店", style: TextStyle(fontSize: settingFontSize(30)),),
+            Text(widget.storeData != null? widget.storeData["storeName"]:"", style: TextStyle(fontSize: settingFontSize(30)),),
             Row(
               children: <Widget>[
                 Text("切换店铺", style: TextStyle(fontSize: settingFontSize(26), color: Color.fromRGBO(153, 153, 153, 1))),
