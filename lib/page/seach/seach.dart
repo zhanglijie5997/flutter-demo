@@ -31,7 +31,7 @@ class _SeachState extends State<Seach> {
   }
   @override
   Widget build(BuildContext context) {
-     double settingWidth(int size) {
+    double settingWidth(int size) {
       return AdopScreenutil.getInstance().adaptationWidth(size, context);
     }
 

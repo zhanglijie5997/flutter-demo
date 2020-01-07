@@ -38,6 +38,17 @@ dependencies:
   # 拨打电话
   # url_launcher: ^5.4.1
   get_it: ^3.1.0
+  # 定位
+#  amap_location: ^0.2.0
+#   amap_location_fluttify: ^0.8.5+107df19
+  # 图片获取
+  image_picker: ^0.6.2+3
+  # 扫码
+  barcode_scan: ^1.0.0
+  # 微信登录
+  fluwx: ^1.2.1+1
+  # 存储
+  shared_preferences: ^0.5.6
 dev_dependencies:
   flutter_test:
     sdk: flutter

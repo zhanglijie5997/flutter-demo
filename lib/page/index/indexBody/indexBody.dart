@@ -19,8 +19,8 @@ class IndexBody extends StatefulWidget {
 class _IndexBodyState extends State<IndexBody> {
   @override
   void initState() {
-    print(widget.bannerList);
-    print(11);
+    // print(widget.bannerList);
+    // print(11);
     super.initState();
   }
   @override

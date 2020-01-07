@@ -1,3 +1,11 @@
+apply plugin: 'kotlin-android'
+buildscript{
+    ext.kotlin_version = '1.2.31'
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
@@ -43,7 +51,10 @@ android {
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner",
+        manifestPlaceholders = [
+                AMAP_KEY : "638c099f9338a1d20858a2b0f612d5fe", /// 高德地图key
+        ]
     }
 
     buildTypes {
@@ -64,4 +75,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    /// 注意这里需要在主项目增加一条依赖，否则可能发生编译不通过的情况
+    implementation 'com.amap.api:location:latest.integration'
 }

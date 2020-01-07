@@ -22,14 +22,32 @@ class HttpInit {
   Response response;
   Dio dio = Dio(_options);
   
+  setDio() {
+    dio.interceptors.add(InterceptorsWrapper(
+      onRequest: (RequestOptions options) {
+        options.headers["token"] = "zhanglijie";
+        // 设置请求头
+        return options;
+      },
+      onResponse: (Response response) {
+        return response;
+      },
+      onError: (DioError err) async {
+        return err;
+      }
+    ));
+  }
+  
   // get 请求
   httpGet(String url,Map<String, dynamic> params) async {
+      await setDio();
       response = await dio.get(url, queryParameters: params);
       final data = response.data;
       return data;
   }
   // post 请求
   httpPost(String url, Map<String, dynamic> params) async{
+    await setDio();
     // FormData formData = FormData.fromMap(params);
     print(params);
     response = await dio.post(url, data: params, onSendProgress: (int sent, int total) {

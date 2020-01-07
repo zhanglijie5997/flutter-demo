@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/utils/httpList/index.dart';
 import 'package:flutter_app/utils/screenUtil.dart';
 import 'package:flutter_app/page/index/indexBody/indexBody.dart';
+//import 'package:amap_location/amap_location.dart';
 class Index extends StatefulWidget {
   _IndexState createState() => _IndexState();
 }
@@ -16,6 +17,7 @@ class _IndexState extends State<Index> {
   List data = [];
   // 新品上架数据
   List _newProductList = []; 
+
   // 获取首页数据
   getIndexData() async {
     var data = await IndexHttp().getIndexData();
@@ -25,7 +27,7 @@ class _IndexState extends State<Index> {
       this.data = data["data"]["excellentProject"];
       this._bannerList = data["data"]["bannerList"];
     });
-    print(this._bannerList);
+    // print(this._bannerList);
   }
 
   // 获取新品上架数据
@@ -35,11 +37,38 @@ class _IndexState extends State<Index> {
       this._newProductList = data["data"]["list"];
     });
   }
+  // 获取用户地理位置
+  getUserLocation() async{
+    // AMapLocationClient.setApiKey("8d5b6b94037ec861f2b9bc9438b80082");
+
+//    await AMapLocationClient.startup(new AMapLocationOption(
+//      desiredAccuracy:CLLocationAccuracy.kCLLocationAccuracyHundredMeters  ));
+//    var location = await AMapLocationClient.getLocation(true);
+//    print("""
+//    经度：${location.longitude}
+//    纬度：${location.latitude}
+//    """);
+    // AMapLocationClient.onLocationUpate.listen((AMapLocation loc){
+    //   if(!mounted)return;
+    //   print(loc);
+    //   setState(() {
+
+    //   });
+    // });
+
+  }
   @override
   void initState(){
     this.getIndexData();
     this.getNewProduct();
+//    this.getUserLocation();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+//    AMapLocationClient.shutdown();
+    super.dispose();
   }
   @override
   Widget build(BuildContext context) {

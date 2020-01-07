@@ -10,7 +10,7 @@ class SwiperWidget extends StatefulWidget {
 class _SwiperWidgetState extends State<SwiperWidget> {
   @override
   void initState() {
-    print(widget.bannerList);
+    // print(widget.bannerList);
     super.initState();
   }
   @override
