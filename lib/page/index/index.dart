@@ -1,9 +1,11 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/page/webview/webview.dart';
 import 'package:flutter_app/utils/httpList/index.dart';
 import 'package:flutter_app/utils/screenUtil.dart';
 import 'package:flutter_app/page/index/indexBody/indexBody.dart';
-//import 'package:amap_location/amap_location.dart';
+import 'package:amap_location/amap_location.dart';
 class Index extends StatefulWidget {
   _IndexState createState() => _IndexState();
 }
@@ -21,7 +23,7 @@ class _IndexState extends State<Index> {
   // 获取首页数据
   getIndexData() async {
     var data = await IndexHttp().getIndexData();
-    // print(data["data"]);
+     print(data);
     setState(() {
       this._indexData = data["data"];
       this.data = data["data"]["excellentProject"];
@@ -39,29 +41,29 @@ class _IndexState extends State<Index> {
   }
   // 获取用户地理位置
   getUserLocation() async{
-    // AMapLocationClient.setApiKey("8d5b6b94037ec861f2b9bc9438b80082");
+//     AMapLocationClient.setApiKey("8d5b6b94037ec861f2b9bc9438b80082");
 
-//    await AMapLocationClient.startup(new AMapLocationOption(
-//      desiredAccuracy:CLLocationAccuracy.kCLLocationAccuracyHundredMeters  ));
-//    var location = await AMapLocationClient.getLocation(true);
-//    print("""
-//    经度：${location.longitude}
-//    纬度：${location.latitude}
-//    """);
-    // AMapLocationClient.onLocationUpate.listen((AMapLocation loc){
-    //   if(!mounted)return;
-    //   print(loc);
-    //   setState(() {
+    await AMapLocationClient.startup(new AMapLocationOption(
+      desiredAccuracy:CLLocationAccuracy.kCLLocationAccuracyHundredMeters  ));
+    var location = await AMapLocationClient.getLocation(true);
+    print("""
+    经度：${location.longitude}
+    纬度：${location.latitude}
+    """);
+     AMapLocationClient.onLocationUpate.listen((AMapLocation loc){
+       if(!mounted)return;
+       print(loc);
+       setState(() {
 
-    //   });
-    // });
+       });
+     });
 
   }
   @override
   void initState(){
     this.getIndexData();
     this.getNewProduct();
-//    this.getUserLocation();
+    this.getUserLocation();
     super.initState();
   }
 
@@ -88,24 +90,33 @@ class _IndexState extends State<Index> {
     // 头部左侧
     Widget headerLeft = Row(
       children: <Widget>[
-        Container(
-            width: AdopScreenutil.getInstance().adaptationWidth(150, context),
-            height: AdopScreenutil.getInstance().adaptationWidth(150, context),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-              // border: Border.all(width: 2.0, color: Colors.red),
-            ),
-            child: Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                      AdopScreenutil.getInstance()
-                          .adaptationWidth(8, context))),
-              clipBehavior: Clip.antiAlias,
-              child: Image.network(
-                  this._indexData != null ? this._indexData["image"]: "https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/09/0E/ChMkJlxmkXiId-nFAAHjtDWSLkMAAu6WQCRyT8AAePM441.jpg",
-                  // "https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/09/0E/ChMkJlxmkXiId-nFAAHjtDWSLkMAAu6WQCRyT8AAePM441.jpg",
-                  fit: BoxFit.fitHeight),
-            )),
+        GestureDetector(
+          child: Container(
+              width: AdopScreenutil.getInstance().adaptationWidth(150, context),
+              height: AdopScreenutil.getInstance().adaptationWidth(150, context),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                // border: Border.all(width: 2.0, color: Colors.red),
+              ),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                        AdopScreenutil.getInstance()
+                            .adaptationWidth(8, context))),
+                clipBehavior: Clip.antiAlias,
+                child: Image.network(
+                    this._indexData != null ? this._indexData["image"]: "https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/09/0E/ChMkJlxmkXiId-nFAAHjtDWSLkMAAu6WQCRyT8AAePM441.jpg",
+                    // "https://desk-fd.zol-img.com.cn/t_s960x600c5/g5/M00/09/0E/ChMkJlxmkXiId-nFAAHjtDWSLkMAAu6WQCRyT8AAePM441.jpg",
+                    fit: BoxFit.fitHeight),
+              )),
+          onTap: () {
+//            print(123);
+              Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
+                return WebView();
+              }));
+          },
+        ),
+
         Container(
           margin: EdgeInsets.fromLTRB(radiusFn(20), radiusFn(80), 0, 0),
           width: radiusFn(270),
@@ -282,7 +293,7 @@ class _IndexState extends State<Index> {
     return Scaffold(
         appBar: AppBar(
           title: Text("主页", style: TextStyle(color: Colors.black)),
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.white60,
         ),
         body: Stack(
           children: <Widget>[

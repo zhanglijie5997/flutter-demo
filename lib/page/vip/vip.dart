@@ -154,9 +154,9 @@ class _VipState extends State<Vip> {
               ],
             ),
             // 签到等列表
-            Container(
-              child: ,
-            )
+//            Container(
+//              child: ,
+//            )
 
           ],
         ),

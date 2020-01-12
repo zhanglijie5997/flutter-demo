@@ -24,7 +24,6 @@ class _SeachState extends State<Seach> {
 
   void getSeach() async {
      var data = await SeachHttpList().getSeach(this._text);
-      
      setState(() {
        this._seachList = data["data"]["list"];
      });
@@ -68,7 +67,7 @@ class _SeachState extends State<Seach> {
               
               child:Center(
                 child: TextField(
-
+                    keyboardAppearance: Brightness.light,
                     style: TextStyle(fontSize: settingFontSize(40)),
                     // maxLength: 30,
                     controller: this._textEditingController,

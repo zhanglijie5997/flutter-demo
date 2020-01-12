@@ -12,7 +12,7 @@ class HttpInit {
     return _instance;
   }
   static BaseOptions _options = BaseOptions(
-    baseUrl: "http://localhost:3000",
+    baseUrl: "http://192.168.0.186:3000",
     connectTimeout: 5000,
     receiveTimeout: 3000,
     headers: {
@@ -43,6 +43,7 @@ class HttpInit {
       await setDio();
       response = await dio.get(url, queryParameters: params);
       final data = response.data;
+//      print(data);
       return data;
   }
   // post 请求
