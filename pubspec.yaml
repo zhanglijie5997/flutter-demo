@@ -30,7 +30,7 @@ dependencies:
   # 使用svg插件
   flutter_svg: ^0.15.0
   # 网络请求库
-  dio: ^3.0.8
+  dio: ">=3.0.8 <6.0.0"
   # 轮播图
   flutter_swiper: ^1.1.6
   # JSON解析
